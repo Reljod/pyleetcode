@@ -1,1 +1,32 @@
 # pyleetcode
+
+## Requirements
+- Python 3.11.X
+- Poetry - python package manager
+- Pyenv (Optional) - For managing python versions and using virtual environments
+
+## Setup
+```sh
+# Activate virtual environment
+# In your virtual environment install poetry
+pip install setuptools
+pip install poetry
+
+poetry install  ## This will install packages from poetry.lock
+```
+
+## Execute script
+```sh
+# Activate virtual environment
+# python <folder>/0XX_problem.py
+# For example:
+python binary_search/001_problem.py
+```
+
+## Execute Test
+```sh
+# Activate virtual environment
+# pytest <folder>/0XX_problem.py -v
+# For example:
+pytest binary_search/001_problem.py -v ## -v for more test verbosity
+```
