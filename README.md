@@ -18,9 +18,13 @@ poetry install  ## This will install packages from poetry.lock
 ## Execute script
 ```sh
 # Activate virtual environment
-# python <folder>/0XX_problem.py
+# python -m <folder>.0XX_problem.py
+#
+# Note that we run via -m (module) since we want it to recognize top level
+# custom libraries that we want to use.
+#
 # For example:
-python binary_search/001_problem.py
+python -m binary_search.001_problem
 ```
 
 ## Execute Test
@@ -28,5 +32,5 @@ python binary_search/001_problem.py
 # Activate virtual environment
 # pytest <folder>/0XX_problem.py -v
 # For example:
-pytest binary_search/001_problem.py -v ## -v for more test verbosity
+python -m pytest binary_search/001_problem.py -v ## -v for more test verbosity
 ```
