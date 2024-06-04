@@ -47,6 +47,22 @@ def bisect_left(num: int, arr: list[int]) -> int:
 
     return low
 
+def bisect_right(num: int, arr: list[int]) -> int:
+    low = 0
+    high = len(arr)
+
+    limiter = LoopLimiter()
+
+    while (low < high and not limiter.is_at_limit()):
+        mid = low + (high - low) // 2
+        if arr[mid] <= num:
+            low = mid + 1
+        else:
+            high = mid
+
+    return low
+
+
 def test_bisect_left() -> None:
     sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
 
@@ -62,6 +78,27 @@ def test_bisect_left_empty_arr() -> None:
     sorted_arr = []
 
     assert bisect_left(10, sorted_arr) == 0
+
+def test_bisect_right() -> None:
+    sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
+
+    assert bisect_right(5, sorted_arr) == 6
+    assert bisect_right(7, sorted_arr) == 8
+
+def test_bisect_right_on_single() -> None:
+    sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
+
+    assert bisect_right(0, sorted_arr) == 2
+
+def test_bisect_right_not_exists() -> None:
+    sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
+
+    assert bisect_right(2, sorted_arr) == 4
+
+def test_bisect_right_empty_arr() -> None:
+    sorted_arr = []
+
+    assert bisect_right(10, sorted_arr) == 0
 
 
 if __name__ == "__main__":
