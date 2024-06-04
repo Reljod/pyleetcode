@@ -69,10 +69,15 @@ def test_bisect_left() -> None:
     assert bisect_left(5, sorted_arr) == 4
     assert bisect_left(7, sorted_arr) == 6
 
-def test_bisect_left_not_exists() -> None:
+def test_bisect_left_on_single() -> None:
     sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
 
     assert bisect_left(0, sorted_arr) == 1
+
+def test_bisect_left_not_exists() -> None:
+    sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
+
+    assert bisect_left(2, sorted_arr) == 4
 
 def test_bisect_left_empty_arr() -> None:
     sorted_arr = []
