@@ -14,7 +14,21 @@ s consists of English letters, digits, symbols and spaces.
 """
 
 def get_longest_substr_length(string: str) -> int:
-    return 0
+    # TODO: Improve performance since this only beats 35% of python codes in leetcode.
+    s_ptr = 0
+    longest_substr_len = 0
+    substr_set = set()
+
+    for end_ptr in range(len(string)):
+        while (string[end_ptr] in substr_set):
+            substr_set.remove(string[s_ptr])
+            s_ptr += 1
+        else:
+            substr_set.add(string[end_ptr])
+
+        longest_substr_len = max(longest_substr_len, len(substr_set))
+
+    return longest_substr_len
 
 def test_get_longest_substr_length() -> None:
     string_longest_map = [
