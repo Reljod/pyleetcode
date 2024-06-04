@@ -21,6 +21,9 @@ sorted_arr = sorted non-repeating num array
 
 """
 
+from lib.loop_limiter import LoopLimiter
+
+
 def main():
     sorted_arr = [ -3, 0, 1, 1, 5, 5, 7, 7, 13, 20 ]
     target = 7
@@ -33,7 +36,9 @@ def bisect_left(num: int, arr: list[int]) -> int:
     low = 0
     high = len(arr)
 
-    while (low < high):
+    limiter = LoopLimiter()
+
+    while (low < high and not limiter.is_at_limit()):
         mid = low + (high - low) // 2
         if arr[mid] < num:
             low = mid + 1
