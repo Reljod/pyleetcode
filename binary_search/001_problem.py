@@ -16,6 +16,9 @@ sorted_arr = sorted non-repeating num array
 
 import sys
 
+from lib.loop_limiter import LoopLimiter
+
+
 def main(*args):
     sorted_arr = [-1, 0, 3, 5, 9, 11]
     target = 9
@@ -28,7 +31,9 @@ def find_target_ind(target: int, arr: list[int]) -> int:
     l_ind = 0
     r_ind = len(arr) - 1
 
-    while (l_ind <= r_ind):
+    limiter = LoopLimiter()
+
+    while (l_ind <= r_ind and not limiter.is_at_limit()):
         m_ind = (l_ind + r_ind) // 2
 
         if arr[m_ind] > target:
