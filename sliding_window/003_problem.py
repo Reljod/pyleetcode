@@ -40,3 +40,9 @@ def test_get_longest_substr_length() -> None:
 
     for string, expected_length in string_longest_map:
         assert get_longest_substr_length(string) == expected_length
+
+def test_get_longest_substr_length_on_empty_string() -> None:
+    string = ""
+    expected_length = 0
+
+    assert get_longest_substr_length(string) == expected_length
