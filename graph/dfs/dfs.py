@@ -31,7 +31,21 @@ class DFS:
 
     def search(self, start_at: int, end_at: int) -> list[int]:
         self.traverse(start_at)
-        return self.visits[start_at: self.visits.index(end_at) + 1]
+
+        traversal = []
+        found = False
+        for i in range(len(self.visits)):
+            visit = self.visits[i]
+            if visit == start_at:
+                found = True
+
+            if found:
+                traversal.append(visit)
+
+            if visit == end_at:
+                break
+
+        return traversal
 
 
 class TestDFS:
