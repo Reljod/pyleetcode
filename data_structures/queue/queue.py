@@ -27,6 +27,9 @@ class Queue:
     def get_back(self) -> int:
         return self._tail.data
 
+    def is_empty(self) -> bool:
+        return self._head is None
+
     def enqueue(self, data: int) -> None:
         node = self.Node(None, data)
 
