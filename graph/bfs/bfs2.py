@@ -63,19 +63,28 @@ class BFSBuilder:
 
 
 def main():
+    v0 = Item(0, False)
+    v1 = Item(1, False)
+    v2 = Item(2, False)
+    v3 = Item(3, False)
+    v5 = Item(5, False)
+    v6 = Item(6, False)
+    v7 = Item(7, False)
+    v8 = Item(8, True)
+
     bfs = BFSBuilder()\
-        .add_edge(Item(0, False), Item(1, False))\
-        .add_edge(Item(0, False), Item(2, False))\
-        .add_edge(Item(0, False), Item(3, False))\
-        .add_edge(Item(1, False), Item(3, False))\
-        .add_edge(Item(2, False), Item(6, False))\
-        .add_edge(Item(2, False), Item(7, False))\
-        .add_edge(Item(3, False), Item(5, False))\
-        .add_edge(Item(5, False), Item(7, False))\
-        .add_edge(Item(6, False), Item(8, True))\
+        .add_edge(v0, v1)\
+        .add_edge(v0, v2)\
+        .add_edge(v0, v3)\
+        .add_edge(v1, v3)\
+        .add_edge(v2, v6)\
+        .add_edge(v2, v7)\
+        .add_edge(v3, v5)\
+        .add_edge(v5, v7)\
+        .add_edge(v6, v8)\
         .build()
 
-    traversal = bfs.search(Item(0, False))
+    traversal = bfs.search(v5)
     print(traversal)
 
 
