@@ -13,7 +13,7 @@ class BFS:
         self.adjacency_list = adjacency_list
         v_count = len(adjacency_list)
 
-        self._visited = [False] * v_count
+        self._visited: list[bool] = [False] * v_count
 
         self.v_queue = Queue()
         self.visits = []
@@ -24,6 +24,9 @@ class BFS:
 
         while (not self.v_queue.is_empty()):
             v_curr = self.v_queue.dequeue()
+            if v_curr is None:
+                break
+
             self.visits.append(v_curr)
             self._visited[v_curr] = True
             neighbors = self.adjacency_list[v_curr]
