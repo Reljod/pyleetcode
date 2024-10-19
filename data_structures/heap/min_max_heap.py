@@ -3,14 +3,14 @@ Implements Max/Min heap use for implementing priority queue.
 """
 
 import logging
+from enum import Enum, auto
+
 import pytest
 
-from enum import Enum, auto
 from lib.test_assertion import assert_equal_list
 
 
 class Heap:
-
     LOGGER = logging.getLogger(__name__)
 
     class HeapType(Enum):
@@ -18,7 +18,7 @@ class Heap:
         MAX = auto()
 
     _capacity: int
-    _heap_type: HeapType
+    _heap_type: HeapType | None
 
     _heap_arr: list[int | None]
     _size: int
@@ -77,12 +77,10 @@ class Heap:
         if (parent_ind := self._get_parent_ind(ind)) < 0:
             return
 
-        print("ind", ind)
         current_val = self._get_data_at(ind)
         parent_val = self._get_data_at(parent_ind)
-        print(current_val, parent_val)
         if self._is_swappable(current_val, parent_val):
-            self._swap(ind, parent_ind)
+            self._swap_ind(ind, parent_ind)
 
         return self._heapify_up(parent_ind)
 
@@ -91,16 +89,27 @@ class Heap:
             return
 
         current_val = self._get_data_at(ind)
-        swappable_child_ind = self._get_most_swappable_ind(self._get_left_child_ind(ind), self._get_right_child_ind(ind))
-        swappable_child_val = self._get_data_at(swappable_child_ind) if swappable_child_ind is not None else None
+        swappable_child_ind = self._get_most_swappable_ind(
+            self._get_left_child_ind(ind), self._get_right_child_ind(ind)
+        )
+        swappable_child_val = (
+            self._get_data_at(swappable_child_ind)
+            if swappable_child_ind is not None
+            else None
+        )
 
-        if swappable_child_val is not None and self._is_swappable(swappable_child_val, current_val):
-            self._swap(ind, swappable_child_ind)
+        if swappable_child_val is not None and self._is_swappable(
+            swappable_child_val, current_val
+        ):
+            self._swap_ind(ind, swappable_child_ind)
 
         return self._heapify_down(swappable_child_ind)
 
-    def _swap(self, ind1, ind2) -> None:
-        self._heap_arr[ind1], self._heap_arr[ind2] = self._heap_arr[ind2], self._heap_arr[ind1]
+    def _swap_ind(self, ind1, ind2) -> None:
+        self._heap_arr[ind1], self._heap_arr[ind2] = (
+            self._heap_arr[ind2],
+            self._heap_arr[ind1],
+        )
 
     def _is_swappable(self, from_val, to_val) -> bool:
         if self._heap_type == self.HeapType.MAX:
@@ -148,8 +157,8 @@ class Heap:
         c_ind = self._get_right_child_ind(index)
         return self._get_data_at(c_ind)
 
-class TestHeap:
 
+class TestHeap:
     @pytest.fixture
     def sample_heap(self) -> Heap:
         heap = Heap(3)
@@ -174,7 +183,6 @@ class TestHeap:
 
 
 class TestMinHeap:
-
     @pytest.fixture
     def sample_min_heap(self) -> Heap:
         min_heap = Heap.create_min(10)
@@ -187,8 +195,8 @@ class TestMinHeap:
 
     def test_should_have_min_on_top_upon_insert(self):
         insert_top_maps = [
-            { "insert": [10, 5, 3], "at_top": 3 },
-            { "insert": [20, 13, 7, 19, 5], "at_top": 5 }
+            {"insert": [10, 5, 3], "at_top": 3},
+            {"insert": [20, 13, 7, 19, 5], "at_top": 5},
         ]
 
         for m in insert_top_maps:
@@ -209,11 +217,13 @@ class TestMinHeap:
     def test_should_retain_min_heap_upon_removal(self, sample_min_heap: Heap):
         sample_min_heap.remove_at(1)
 
-        assert_equal_list(sample_min_heap.get_heap_array(), [5, 19, 10, 22, 30, 20, None, None, None, None])
+        assert_equal_list(
+            sample_min_heap.get_heap_array(),
+            [5, 19, 10, 22, 30, 20, None, None, None, None],
+        )
 
 
 class TestMaxHeap:
-
     @pytest.fixture
     def sample_max_heap(self) -> Heap:
         max_heap = Heap.create_max(10)
@@ -226,8 +236,8 @@ class TestMaxHeap:
 
     def test_should_have_max_on_top_upon_insert(self):
         insert_top_maps = [
-            { "insert": [3, 10, 5], "at_top": 10 },
-            { "insert": [13, 20, 7, 19, 5], "at_top": 20 }
+            {"insert": [3, 10, 5], "at_top": 10},
+            {"insert": [13, 20, 7, 19, 5], "at_top": 20},
         ]
 
         for m in insert_top_maps:
@@ -240,7 +250,9 @@ class TestMaxHeap:
 
     def test_should_retain_max_heap_upon_insertion(self, sample_max_heap: Heap):
         sample_max_heap.insert(25)
-        assert_equal_list(sample_max_heap.get_heap_array(), [30, 25, 22, 20, 5, 7, 10, 19, None, None])
+        assert_equal_list(
+            sample_max_heap.get_heap_array(), [30, 25, 22, 20, 5, 7, 10, 19, None, None]
+        )
 
     def test_should_retain_max_top_upon_taking_top(self, sample_max_heap: Heap):
         init_top = sample_max_heap.get_top()
@@ -252,4 +264,7 @@ class TestMaxHeap:
     def test_should_retain_max_heap_upon_removal(self, sample_max_heap: Heap):
         sample_max_heap.remove_at(1)
 
-        assert_equal_list(sample_max_heap.get_heap_array(), [30, 19, 22, 10, 5, 7, None, None, None, None])
+        assert_equal_list(
+            sample_max_heap.get_heap_array(),
+            [30, 19, 22, 10, 5, 7, None, None, None, None],
+        )
