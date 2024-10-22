@@ -25,28 +25,28 @@ class MergeSort:
 
         return self._merge(self._merge_sort(arr1), self._merge_sort(arr2))
 
-    def _merge(self, u: list[int], v: list[int]) -> list[int]:
+    def _merge(self, arr1: list[int], arr2: list[int]) -> list[int]:
         new_arr = []
         i, j = 0, 0
-        while i < len(u) or j < len(v):
+        while i < len(arr1) or j < len(arr2):
 
             # If all elements of 1st array is filled
             # then fill-in the rest of 2nd array
-            if i >= len(u):
-                new_arr.extend(v[j:])
+            if i >= len(arr1):
+                new_arr.extend(arr2[j:])
                 break
 
             # If all elements of 2nd array is filled
             # then fill-in the rest of 1st array
-            if j >= len(v):
-                new_arr.extend(u[i:])
+            if j >= len(arr2):
+                new_arr.extend(arr1[i:])
                 break
 
-            if self._compare(u[i], v[j]):
-                new_arr.append(u[i])
+            if self._compare(arr1[i], arr2[j]):
+                new_arr.append(arr1[i])
                 i += 1
             else:
-                new_arr.append(v[j])
+                new_arr.append(arr2[j])
                 j += 1
 
         return new_arr
