@@ -29,6 +29,9 @@ class InsertionSort:
 
 def main():
     sorter = InsertionSort()
+    print("Sort Algorithm:", sorter.__class__.__name__)
+    print("")
+
     input_arr = [5, 2, 4, 6, 1, 3]
     print("Sort by ascending:")
     print("Input Array:", input_arr)
