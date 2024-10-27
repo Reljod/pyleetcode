@@ -1,18 +1,12 @@
-[tool.poetry]
+[project]
 name = "pyleetcode"
 version = "0.1.0"
-description = ""
-authors = ["Reljod Oreta <oretareljod@gmail.com>"]
+description = "Python uv project for maintaining my data structures and algorithms knowledge"
 readme = "README.md"
-package-mode = false
+requires-python = ">=3.13"
+dependencies = []
 
-[tool.poetry.dependencies]
-python = "^3.11"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.2.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+]
