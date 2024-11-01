@@ -1,17 +1,12 @@
-from enum import Enum, auto
-
-
-class SortOrder(Enum):
-    ASC = auto()
-    DESC = auto()
+from lib.sort_order import SortOrder
 
 
 class InsertionSort:
 
-    def __init__(self, sort_order: SortOrder | None = SortOrder.ASC):
+    def __init__(self, sort_order: SortOrder = SortOrder.ASC):
         self.sort_order = sort_order
 
-    def sort(self, arr: list[int]) -> list[int]:
+    def sort(self, arr: list) -> list:
 
         for i in range(1, len(arr)):
             for j in range(i):
@@ -20,7 +15,7 @@ class InsertionSort:
 
         return arr
 
-    def _compare(self, u: int, v: int):
+    def _compare(self, u, v):
         if self.sort_order == SortOrder.ASC:
             return u > v
 
