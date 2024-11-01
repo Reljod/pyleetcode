@@ -23,8 +23,14 @@ class BucketSort:
 
     def sort(self, arr: list) -> list:
 
+        if len(arr) <= 0:
+            return arr
+
         for val in arr:
             ind = self.get_bucket_ind(val)
+            if self.sort_order == SortOrder.DESC:
+                ind = self.bucket_size - ind - 1
+
             self.buckets[ind].append(val)
 
         for i in range(len(self.buckets)):
@@ -42,6 +48,9 @@ class BucketSort:
         return max(int(val * self.bucket_size) - 1, 0)
 
     def normalize_inplace(self, arr: list) -> Any:
+        if len(arr) <= 0:
+            return None
+
         max = arr[0]
 
         for i in range(1, len(arr)):
@@ -54,6 +63,9 @@ class BucketSort:
         return max
 
     def denormalize_inplace(self, arr: list, max: Any) -> None:
+        if max is None:
+            return
+
         for i in range(len(arr)):
             arr[i] = int( arr[i] * max )  # Convert back to int
 
@@ -64,6 +76,7 @@ def main():
     bucket_sort = BucketSort(insertion_sort, sort_order_type)
 
     input_arr = [5, 8, 2, 4, 6, 1, 3, 3, 3, 13, 5]
+    input_arr = []
     print("Input array:", input_arr)
 
     normalized_val = bucket_sort.normalize_inplace(input_arr)
