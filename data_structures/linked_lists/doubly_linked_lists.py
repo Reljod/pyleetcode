@@ -33,6 +33,9 @@ class DoublyLinkedList:
 
         return self
 
+    def append(self, node: Node) -> Self:
+        return self.add(node)
+
     def traverse_forward(self, head: Node | None) -> None:
         curr: Node | None = head
 
@@ -69,6 +72,10 @@ def main():
 
     print("Traverse forward from end:", end)
     dll.traverse_backward(end)
+
+    print("Append operation:", head)
+    dll.append(Node(50))
+    dll.traverse_forward(head)
 
 
 if __name__ == "__main__":
